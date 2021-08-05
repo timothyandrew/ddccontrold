@@ -1,6 +1,6 @@
 # ddccontrold
 
-[ddccontrol](https://github.com/ddccontrol/ddccontrol) allows control external monitor brightness on Linux. It requires `sudo` to use, though, and [various](https://frdmtoplay.com/using-ddccontrol-as-a-non-root-user/) [workarounds](https://github.com/ddccontrol/ddccontrol/issues/5) made no difference on my (Debian) machine. This repo attempts to fix this problem with:
+[ddccontrol](https://github.com/ddccontrol/ddccontrol) allows controlling external monitor brightness on Linux. It requires `sudo` to use, though, and [various](https://frdmtoplay.com/using-ddccontrol-as-a-non-root-user/) [workarounds](https://github.com/ddccontrol/ddccontrol/issues/5) made no difference on my (Debian) machine. This repo attempts to fix this problem with:
 
 - A daemon that runs as `root`, typically under `systemd`, accepting commands over a domain socket
 - A client that does _not_ run as `root` sending commands to this domain socket
