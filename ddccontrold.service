@@ -1,0 +1,13 @@
+[Unit]
+Description=DDCControl Daemon
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/home/tim/.cargo/bin/ddccontrold --mode server
+
+[Install]
+WantedBy=multi-user.target
