@@ -7,6 +7,20 @@ fn parse_command(command: u8) -> (bool, usize) {
     (is_brightness, value as usize)
 }
 
+fn execute_command(key: &str, value: &str, device: &str) {
+    let mut command = Command::new("/bin/ddccontrol");
+    let command = command.args(&["-r", key, "-w", value, device]);
+
+    match command.status() {
+        Err(e) => eprintln!("Failed to execute command: {}", e),
+        Ok(status) => {
+            if !status.success() {
+                eprintln!("Command exited with non-zero exit code: {}", status)
+            }
+        }
+    }
+}
+
 // TODO: Make this configurable (the 0x hardcodes, the /dev paths, etc.)
 pub fn listen(path: &str) {
     fs::remove_file(path);
@@ -27,29 +41,11 @@ pub fn listen(path: &str) {
         let (is_brightness, value) = parse_command(command);
 
         if is_brightness {
-            let mut command = Command::new("/bin/ddccontrol");
-            let command = command.args(&["-r", "0x10", "-w", &value.to_string(), "dev:/dev/i2c-5"]);
-
-            match command.status() {
-                Err(e) => eprintln!("Failed to execute command: {}", e),
-                Ok(status) => {
-                    if !status.success() {
-                        eprintln!("Command exited with non-zero exit code: {}", status)
-                    }
-                }
-            }
+            execute_command("0x10", &value.to_string(), "dev:/dev/i2c-5");
+            execute_command("0x10", &value.to_string(), "dev:/dev/i2c-7");
         } else {
-            let mut command = Command::new("/bin/ddccontrol");
-            let command = command.args(&["-r", "0x12", "-w", &value.to_string(), "dev:/dev/i2c-5"]);
-
-            match command.status() {
-                Err(e) => eprintln!("Failed to execute command: {}", e),
-                Ok(status) => {
-                    if !status.success() {
-                        eprintln!("Command exited with non-zero exit code: {}", status)
-                    }
-                }
-            }
+            execute_command("0x12", &value.to_string(), "dev:/dev/i2c-5");
+            execute_command("0x12", &value.to_string(), "dev:/dev/i2c-7");
         }
     }
 }
