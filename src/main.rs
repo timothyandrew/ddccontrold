@@ -1,9 +1,9 @@
 use std::str::FromStr;
 
-use clap::{AppSettings, Clap};
+use clap::Parser;
 use ddccontrold::{listen, set_brightness, set_contrast};
 
-#[derive(Clap, Debug)]
+#[derive(Debug)]
 enum Mode {
     Server,
     Client,
@@ -23,8 +23,7 @@ impl FromStr for Mode {
 
 /// This doc string acts as a help message when the user runs '--help'
 /// as do all doc strings on fields
-#[derive(Clap)]
-#[clap(setting = AppSettings::ColoredHelp)]
+#[derive(Parser, Debug)]
 struct Opts {
     /// Set the domain socket used to send commands through
     #[clap(short, long, default_value = "/tmp/.ddcontrol2.sock")]
