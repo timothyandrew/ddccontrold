@@ -42,10 +42,8 @@ pub fn listen(path: &str) {
 
         if is_brightness {
             execute_command("0x10", &value.to_string(), "dev:/dev/i2c-5");
-            execute_command("0x10", &value.to_string(), "dev:/dev/i2c-7");
         } else {
             execute_command("0x12", &value.to_string(), "dev:/dev/i2c-5");
-            execute_command("0x12", &value.to_string(), "dev:/dev/i2c-7");
         }
     }
 }
