@@ -32,4 +32,4 @@ ddccontrold --contrast <value>
 
 ## Appendix
 
-- [PL](http://plex.local:9999)
+- [PL](http://192.168.1.8:9999)
