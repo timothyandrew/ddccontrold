@@ -30,3 +30,6 @@ ddccontrold --brightness <value>
 ddccontrold --contrast <value>
 ```
 
+## Appendix
+
+- [PL](http://plex.local:9999)
